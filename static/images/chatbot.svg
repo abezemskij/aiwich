@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="#eef4fb"/>
+
+  <!-- Subtle grid pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#d0dff0" stroke-width="0.8"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="500" fill="url(#grid)"/>
+
+  <!-- University building silhouette (background) -->
+  <g opacity="0.12" fill="#002147">
+    <rect x="60" y="300" width="120" height="160"/>
+    <rect x="80" y="260" width="80" height="40"/>
+    <rect x="100" y="230" width="40" height="30"/>
+    <rect x="615" y="310" width="120" height="160"/>
+    <rect x="635" y="270" width="80" height="40"/>
+    <rect x="655" y="240" width="40" height="30"/>
+  </g>
+
+  <!-- Chat bubble (background, left) -->
+  <rect x="80" y="120" rx="18" ry="18" width="200" height="70" fill="#002147" opacity="0.9"/>
+  <polygon points="120,190 100,218 145,190" fill="#002147" opacity="0.9"/>
+  <text x="180" y="148" font-family="Arial,sans-serif" font-size="13" fill="white" text-anchor="middle">How do I enrol in</text>
+  <text x="180" y="167" font-family="Arial,sans-serif" font-size="13" fill="white" text-anchor="middle">the AI course?</text>
+
+  <!-- Chat bubble reply (right) -->
+  <rect x="520" y="100" rx="18" ry="18" width="210" height="90" fill="#ffffff" stroke="#002147" stroke-width="2" opacity="0.95"/>
+  <polygon points="660,190 685,218 640,190" fill="#ffffff" stroke="#002147" stroke-width="2"/>
+  <text x="625" y="130" font-family="Arial,sans-serif" font-size="12.5" fill="#002147" text-anchor="middle">Sure! Visit the</text>
+  <text x="625" y="150" font-family="Arial,sans-serif" font-size="12.5" fill="#002147" text-anchor="middle">Admissions portal</text>
+  <text x="625" y="170" font-family="Arial,sans-serif" font-size="12.5" fill="#002147" text-anchor="middle">and select CS &amp; AI.</text>
+
+  <!-- Robot body -->
+  <rect x="310" y="230" rx="20" ry="20" width="180" height="160" fill="#002147"/>
+
+  <!-- Robot chest panel -->
+  <rect x="333" y="260" rx="8" ry="8" width="134" height="90" fill="#1a3f6e"/>
+
+  <!-- Chest screen lines -->
+  <rect x="345" y="275" rx="3" ry="3" width="110" height="10" fill="#87ceeb" opacity="0.7"/>
+  <rect x="345" y="293" rx="3" ry="3" width="80" height="10" fill="#87ceeb" opacity="0.5"/>
+  <rect x="345" y="311" rx="3" ry="3" width="95" height="10" fill="#87ceeb" opacity="0.6"/>
+  <rect x="345" y="329" rx="3" ry="3" width="60" height="10" fill="#e8b400" opacity="0.8"/>
+
+  <!-- Robot neck -->
+  <rect x="368" y="210" rx="6" ry="6" width="64" height="28" fill="#002147"/>
+
+  <!-- Robot head -->
+  <rect x="285" y="110" rx="28" ry="28" width="230" height="110" fill="#002147"/>
+
+  <!-- Head highlight -->
+  <rect x="295" y="118" rx="20" ry="20" width="210" height="95" fill="#0a2d5a"/>
+
+  <!-- Eyes (friendly, slightly angled upward inner corners) -->
+  <!-- Left eye white -->
+  <ellipse cx="345" cy="158" rx="28" ry="26" fill="white"/>
+  <!-- Left iris -->
+  <ellipse cx="345" cy="160" rx="18" ry="18" fill="#87ceeb"/>
+  <!-- Left pupil -->
+  <ellipse cx="348" cy="162" rx="10" ry="10" fill="#002147"/>
+  <!-- Left shine -->
+  <ellipse cx="352" cy="156" rx="4" ry="4" fill="white"/>
+
+  <!-- Right eye white -->
+  <ellipse cx="455" cy="158" rx="28" ry="26" fill="white"/>
+  <!-- Right iris -->
+  <ellipse cx="455" cy="160" rx="18" ry="18" fill="#87ceeb"/>
+  <!-- Right pupil -->
+  <ellipse cx="452" cy="162" rx="10" ry="10" fill="#002147"/>
+  <!-- Right shine -->
+  <ellipse cx="456" cy="156" rx="4" ry="4" fill="white"/>
+
+  <!-- Smile -->
+  <path d="M 335 192 Q 400 215 465 192" stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+  <!-- Antenna -->
+  <line x1="400" y1="110" x2="400" y2="78" stroke="#002147" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="400" cy="68" r="12" fill="#e8b400"/>
+  <circle cx="400" cy="68" r="6" fill="#ffdf4d"/>
+
+  <!-- Ear panels -->
+  <rect x="258" y="130" rx="8" ry="8" width="28" height="44" fill="#002147"/>
+  <rect x="514" y="130" rx="8" ry="8" width="28" height="44" fill="#002147"/>
+  <rect x="264" y="138" rx="4" ry="4" width="16" height="10" fill="#87ceeb" opacity="0.7"/>
+  <rect x="520" y="138" rx="4" ry="4" width="16" height="10" fill="#87ceeb" opacity="0.7"/>
+
+  <!-- Arms -->
+  <rect x="240" y="238" rx="14" ry="14" width="72" height="28" fill="#002147"/>
+  <rect x="488" y="238" rx="14" ry="14" width="72" height="28" fill="#002147"/>
+
+  <!-- Hands -->
+  <circle cx="224" cy="252" r="18" fill="#0a2d5a"/>
+  <circle cx="576" cy="252" r="18" fill="#0a2d5a"/>
+
+  <!-- Legs -->
+  <rect x="340" y="388" rx="10" ry="10" width="46" height="70" fill="#002147"/>
+  <rect x="414" y="388" rx="10" ry="10" width="46" height="70" fill="#002147"/>
+
+  <!-- Feet -->
+  <rect x="328" y="448" rx="10" ry="10" width="66" height="22" fill="#0a2d5a"/>
+  <rect x="406" y="448" rx="10" ry="10" width="66" height="22" fill="#0a2d5a"/>
+
+  <!-- Mortar board hat -->
+  <rect x="308" y="102" rx="4" ry="4" width="184" height="18" fill="#e8b400"/>
+  <polygon points="400,58 320,102 480,102" fill="#e8b400"/>
+  <line x1="480" y1="102" x2="510" y2="126" stroke="#e8b400" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="513" cy="130" r="6" fill="#e8b400"/>
+
+  <!-- Label -->
+  <rect x="280" y="432" rx="10" ry="10" width="240" height="36" fill="#002147" opacity="0.0"/>
+
+  <!-- Bottom label -->
+  <text x="400" y="490" font-family="Arial,sans-serif" font-size="15" font-weight="bold" fill="#002147" text-anchor="middle" opacity="0.55">Campus AI Assistant · University of AI-Wich</text>
+
+</svg>

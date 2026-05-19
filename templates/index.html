@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University of AI-Wich</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Logo" class="navbar-logo">
+                University of AI-Wich
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Admissions</a></li>
+                <li><a href="#">Research</a></li>
+                <li><a href="#">Campus</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="/ai-tuning" class="nav-tuning">AI Tuning</a></li>
+            </ul>
+
+            <div class="user-info">
+                {% if user %}
+                    Logged in as: {{ user.name }} ({{ user.id }})
+                {% else %}
+                    Logged in as: [DB ERROR]
+                {% endif %}
+            </div>
+
+        </nav>
+    </header>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+
+        <div class="hero-overlay">
+
+            <h1>
+                Welcome to University of AI-Wich
+            </h1>
+
+            <p>
+                Empowering future innovators with
+                cutting-edge AI technologies and modern education.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- NEWS SECTION -->
+    <section class="news-section">
+
+        <h2>Latest University News</h2>
+
+        <div class="news-grid">
+
+            <!-- ARTICLE 1 -->
+            <article class="news-card">
+
+                <img
+                    src="{{ url_for('static', filename='images/chatbot.svg') }}"
+                    alt="University AI Chatbot">
+
+                <h3>
+                    University Launches AI Campus Assistant
+                </h3>
+
+                <p>
+                    University of AI-Wich has officially launched its AI-powered Campus Assistant,
+                    a conversational chatbot available 24/7 to students, staff, and visitors.
+                    The assistant can answer questions about admissions deadlines, course schedules,
+                    campus facilities, and academic services — all in real time. Built on a
+                    locally-hosted language model, the system prioritises privacy by processing
+                    all queries on-campus without sending data to third-party cloud providers.
+                    Early pilot testing saw over 1,200 student interactions in the first week alone.
+                </p>
+
+            </article>
+
+
+            <!-- ARTICLE 2 -->
+            <article class="news-card">
+
+                <img
+                    src="{{ url_for('static', filename='images/students.jpg') }}"
+                    alt="Students">
+
+                <h3>
+                    Student Feedback Shapes Digital Transformation
+                </h3>
+
+                <p>
+                    Following two semesters of surveys involving over 4,000 students and 800 campus
+                    visitors, the university overhauled its digital communication strategy.
+                    Students consistently reported frustration with slow email response times and
+                    fragmented information across departmental websites. In response, the university
+                    consolidated key services into a single AI-driven interface, reducing average
+                    query resolution time from 48 hours to under 30 seconds. A dedicated student
+                    advisory board continues to guide future development priorities.
+                </p>
+
+            </article>
+
+
+            <!-- ARTICLE 3 -->
+            <article class="news-card">
+
+                <img
+                    src="{{ url_for('static', filename='images/technology.jpg') }}"
+                    alt="Technology">
+
+                <h3>
+                    AI Navigation Available for Visitors
+                </h3>
+
+                <p>
+                    First-time visitors and prospective students can now use the AI assistant as
+                    a live campus guide. Ask for walking directions to any lecture hall, cafeteria,
+                    sports facility, or administrative office and receive step-by-step instructions
+                    tailored to your current location. The assistant also provides opening hours,
+                    upcoming events, and accessibility information for each venue. Integration with
+                    the university's live event calendar means answers are always up to date,
+                    even during exam periods and open days.
+                </p>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- CHATBOT -->
+    <div id="chatbot-container" class="chatbot-hidden">
+
+        <div class="chatbot-header">
+
+            <span>
+                Campus AI Assistant
+            </span>
+
+            <div class="chatbot-header-btns">
+                <button id="minimise-chat" title="Minimise">&#8211;</button>
+                <button id="close-chat"    title="Close">&#215;</button>
+            </div>
+
+        </div>
+
+
+        <div id="chat-messages" class="chat-messages">
+
+            <div class="bot-message">Hello! Welcome to University of AI-Wich. How can I help you today? If you have any queries regarding your grade or student information, please provide your <strong>Student ID</strong> (e.g. S1xxx) and <strong>course code</strong> (e.g. COMP1671) where appropriate.</div>
+
+        </div>
+
+
+        <div class="chat-input-area">
+
+            <input
+                type="text"
+                id="chat-input"
+                placeholder="Ask something...">
+
+            <button id="send-btn">
+                Send
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script
+        src="{{ url_for('static', filename='js/chatbot.js') }}">
+    </script>
+
+</body>
+</html>

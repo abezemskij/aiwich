@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tuning — University of AI-Wich</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                <a href="/" class="logo-link">
+                    <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Logo" class="navbar-logo">
+                    University of AI-Wich
+                </a>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Admissions</a></li>
+                <li><a href="#">Research</a></li>
+                <li><a href="#">Campus</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="/ai-tuning" class="nav-tuning">AI Tuning</a></li>
+            </ul>
+
+            <div class="user-info">
+                {% if user %}
+                    Logged in as: {{ user.name }} ({{ user.id }})
+                {% else %}
+                    Logged in as: [DB ERROR]
+                {% endif %}
+            </div>
+
+        </nav>
+    </header>
+
+
+    <!-- PAGE CONTENT -->
+    <main class="tuning-page">
+
+        <div class="tuning-container">
+
+            <h1>AI Tuning</h1>
+
+            <p class="tuning-intro">
+                Customise the system prompt that is sent to the language model before every
+                conversation. Changes take effect immediately for all new messages — no restart
+                required. Use this to adjust the assistant's tone, scope, or behaviour to suit
+                your teaching or research goals.
+            </p>
+
+
+            <!-- ARCHITECTURE DIAGRAM -->
+            <div class="diagram-section">
+
+                <h2 class="diagram-title">How It Works</h2>
+
+                <p class="diagram-caption">
+                    The diagram below shows the full request flow. A user message is combined
+                    with the system prompt you define here and sent to the local LLM. Depending
+                    on the response, the chatbot either returns a direct text answer or produces
+                    a SQL query destined for the student database.
+                </p>
+
+                <div class="diagram-wrapper">
+                    <img
+                        src="{{ url_for('static', filename='images/architecture-diagram.svg') }}"
+                        alt="System architecture diagram showing user, web application, LLM, text response, and database flow"
+                        class="diagram-img">
+                </div>
+
+            </div>
+
+
+            <!-- INFO BOX -->
+            <div class="tuning-infobox">
+                <strong>Tips for writing effective system prompts</strong>
+                <ul>
+                    <li>Be specific about the assistant's role and audience (e.g. "You are a tutor for first-year computer science students").</li>
+                    <li>List topics the assistant should and should not discuss.</li>
+                    <li>Define the response style — length, formality, use of examples.</li>
+                    <li>If using the SQL agent format, keep the <code>*** [SQL Query]</code> instruction intact.</li>
+                </ul>
+            </div>
+
+
+            <!-- EDITOR -->
+            <label for="prompt-editor" class="tuning-label">
+                System Prompt
+            </label>
+
+            <textarea
+                id="prompt-editor"
+                class="prompt-editor"
+                rows="18"
+                spellcheck="false">{{ prompt }}</textarea>
+
+            <div class="tuning-actions">
+
+                <button id="save-btn" class="btn-primary">
+                    Save Changes
+                </button>
+
+                <button id="reset-btn" class="btn-secondary">
+                    Reset to Default
+                </button>
+
+            </div>
+
+            <div id="status-msg" class="status-msg"></div>
+
+        </div>
+
+    </main>
+
+
+    <!-- CHATBOT -->
+    <div id="chatbot-container" class="chatbot-hidden">
+
+        <div class="chatbot-header">
+
+            <span>
+                Campus AI Assistant
+            </span>
+
+            <div class="chatbot-header-btns">
+                <button id="minimise-chat" title="Minimise">&#8211;</button>
+                <button id="close-chat"    title="Close">&#215;</button>
+            </div>
+
+        </div>
+
+
+        <div id="chat-messages" class="chat-messages">
+
+            <div class="bot-message">Hello! Welcome to University of AI-Wich. How can I help you today? If you have any queries regarding your grade or student information, please provide your <strong>Student ID</strong> (e.g. S1xxx) and <strong>course code</strong> (e.g. COMP1671) where appropriate.</div>
+
+        </div>
+
+
+        <div class="chat-input-area">
+
+            <input
+                type="text"
+                id="chat-input"
+                placeholder="Ask something...">
+
+            <button id="send-btn">
+                Send
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+
+
+    <script>
+        const editor     = document.getElementById('prompt-editor');
+        const saveBtn    = document.getElementById('save-btn');
+        const resetBtn   = document.getElementById('reset-btn');
+        const statusMsg  = document.getElementById('status-msg');
+
+        function showStatus(text, type) {
+            statusMsg.textContent = text;
+            statusMsg.className   = 'status-msg status-' + type;
+            setTimeout(() => { statusMsg.textContent = ''; statusMsg.className = 'status-msg'; }, 3500);
+        }
+
+        saveBtn.addEventListener('click', async () => {
+            const prompt = editor.value.trim();
+            if (!prompt) { showStatus('Prompt cannot be empty.', 'error'); return; }
+
+            saveBtn.disabled = true;
+            try {
+                const res  = await fetch('/api/system-prompt', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showStatus('System prompt saved successfully.', 'success');
+                } else {
+                    showStatus(data.error || 'Failed to save.', 'error');
+                }
+            } catch (e) {
+                showStatus('Server connection error.', 'error');
+            } finally {
+                saveBtn.disabled = false;
+            }
+        });
+
+        resetBtn.addEventListener('click', async () => {
+            if (!confirm('Reset to the default system prompt? Your changes will be lost.')) return;
+
+            try {
+                const res  = await fetch('/api/system-prompt/reset', { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    editor.value = data.prompt;
+                    showStatus('Prompt reset to default.', 'success');
+                }
+            } catch (e) {
+                showStatus('Server connection error.', 'error');
+            }
+        });
+    </script>
+
+</body>
+</html>

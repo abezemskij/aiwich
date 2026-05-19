@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 395" width="1060" height="395">
+  <defs>
+    <marker id="m-dark" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#445566"/>
+    </marker>
+    <marker id="m-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#1a7a3e"/>
+    </marker>
+    <marker id="m-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#a82222"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1060" height="395" fill="#eef2f7"/>
+
+  <!-- Subtle grid -->
+  <defs>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M 36 0 L 0 0 0 36" fill="none" stroke="#d8e2ef" stroke-width="0.7"/>
+    </pattern>
+  </defs>
+  <rect width="1060" height="395" fill="url(#grid)"/>
+
+  <!-- Title -->
+  <text x="530" y="34" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="bold" fill="#002147">University of AI-Wich — System Flow</text>
+
+
+  <!-- ══════════════ USER ══════════════ -->
+
+  <!-- Head -->
+  <circle cx="78" cy="120" r="22" fill="none" stroke="#002147" stroke-width="2.5"/>
+  <!-- Face: eyes -->
+  <circle cx="71" cy="117" r="2.5" fill="#002147"/>
+  <circle cx="85" cy="117" r="2.5" fill="#002147"/>
+  <!-- Face: smile -->
+  <path d="M 70 127 Q 78 133 86 127" stroke="#002147" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Body -->
+  <line x1="78" y1="142" x2="78" y2="192" stroke="#002147" stroke-width="2.5"/>
+  <!-- Arms -->
+  <line x1="48" y1="162" x2="108" y2="162" stroke="#002147" stroke-width="2.5"/>
+  <!-- Legs -->
+  <line x1="78" y1="192" x2="48" y2="230" stroke="#002147" stroke-width="2.5"/>
+  <line x1="78" y1="192" x2="108" y2="230" stroke="#002147" stroke-width="2.5"/>
+  <!-- Label -->
+  <text x="78" y="250" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#002147" font-weight="bold">User</text>
+
+
+  <!-- Arrow: User → Web App -->
+  <line x1="110" y1="168" x2="158" y2="168" stroke="#445566" stroke-width="2" marker-end="url(#m-dark)"/>
+  <text x="90" y="90" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#445566">sends message</text>
+
+
+  <!-- ══════════════ WEB APPLICATION ══════════════ -->
+
+  <rect x="158" y="110" width="210" height="125" rx="12" fill="#002147"/>
+  <!-- Shadow effect -->
+  <rect x="162" y="114" width="210" height="125" rx="12" fill="none" stroke="#001030" stroke-width="0" opacity="0.3"/>
+
+  <text x="263" y="132" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white">Web Application</text>
+
+  <!-- System Prompt chip -->
+  <rect x="173" y="140" width="182" height="34" rx="7" fill="#0e3060"/>
+  <rect x="173" y="140" width="7" height="34" rx="3" fill="#87ceeb"/>
+  <text x="272" y="162" text-anchor="middle" font-family="Arial,sans-serif" font-size="11.5" fill="#87ceeb">System Prompt</text>
+
+  <!-- User Prompt chip -->
+  <rect x="173" y="181" width="182" height="34" rx="7" fill="#0e3060"/>
+  <rect x="173" y="181" width="7" height="34" rx="3" fill="#e8b400"/>
+  <text x="272" y="203" text-anchor="middle" font-family="Arial,sans-serif" font-size="11.5" fill="#e8b400">User Prompt</text>
+
+
+  <!-- Arrow: Web App → LLM -->
+  <line x1="368" y1="172" x2="420" y2="172" stroke="#445566" stroke-width="2" marker-end="url(#m-dark)"/>
+  <text x="394" y="163" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#445566">full prompt</text>
+
+
+  <!-- ══════════════ LLM ══════════════ -->
+
+  <rect x="420" y="110" width="172" height="125" rx="12" fill="#003880"/>
+
+  <text x="506" y="136" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white">LLM</text>
+  <text x="506" y="155" text-anchor="middle" font-family="Arial,sans-serif" font-size="10.5" fill="#aad4f5">Specific Model</text>
+
+  <!-- Neural wave decoration -->
+  <path d="M 450 185 Q 462 170 475 185 Q 488 200 501 185 Q 514 170 527 185 Q 540 200 553 185 Q 566 170 576 185"
+        stroke="#5a9fd4" stroke-width="1.8" fill="none" opacity="0.7"/>
+  <!-- Second wave -->
+  <path d="M 450 200 Q 462 188 475 200 Q 488 212 501 200 Q 514 188 527 200 Q 540 212 553 200 Q 566 188 576 200"
+        stroke="#5a9fd4" stroke-width="1.4" fill="none" opacity="0.4"/>
+
+
+  <!-- ══════════════ BRANCHES FROM LLM ══════════════ -->
+
+  <!-- Upper branch: LLM → Text Response -->
+  <path d="M 592 148 C 622 148 622 96 652 96"
+        stroke="#1a7a3e" stroke-width="2.2" fill="none" marker-end="url(#m-green)"/>
+  <text x="650" y="150" text-anchor="middle" font-family="Arial,sans-serif"
+        font-size="10" fill="#1a7a3e" font-style="italic">text response</text>
+
+  <!-- Lower branch: LLM → SQL Query → Database -->
+  <path d="M 592 196 C 622 196 622 292 652 292"
+        stroke="#a82222" stroke-width="2.2" fill="none" marker-end="url(#m-red)"/>
+  <text x="650" y="240" text-anchor="middle" font-family="Arial,sans-serif"
+        font-size="10" fill="#a82222" font-style="italic">SQL query</text>
+
+
+  <!-- ══════════════ TEXT RESPONSE BOX ══════════════ -->
+
+  <rect x="652" y="66" width="200" height="62" rx="10" fill="#1a7a3e"/>
+  <text x="752" y="92" text-anchor="middle" font-family="Arial,sans-serif"
+        font-size="13" font-weight="bold" fill="white">Text Response</text>
+  <text x="752" y="112" text-anchor="middle" font-family="Arial,sans-serif"
+        font-size="10.5" fill="#b8f0cc">e.g. campus info, guidance</text>
+
+  <!-- Return arc: Text Response → User (dashed, over the top) -->
+  <path d="M 652 90 Q 652 44 504 44 Q 200 44 110 118"
+        stroke="#1a7a3e" stroke-width="2" fill="none" stroke-dasharray="7 4"
+        marker-end="url(#m-green)"/>
+  <text x="300" y="37" text-anchor="middle" font-family="Arial,sans-serif"
+        font-size="10" fill="#1a7a3e">response shown in chatbot</text>
+
+
+  <!-- ══════════════ DATABASE CYLINDER ══════════════ -->
+
+  <!-- Top ellipse -->
+  <ellipse cx="752" cy="285" rx="58" ry="15" fill="#6e0f0f"/>
+  <!-- Body -->
+  <rect x="694" y="285" width="116" height="66" fill="#a82222"/>
+  <!-- Bottom ellipse -->
+  <ellipse cx="752" cy="351" rx="58" ry="15" fill="#6e0f0f"/>
+  <!-- Highlight arc on top -->
+  <path d="M 720 280 Q 752 271 784 280" stroke="#e87c6d" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <!-- Labels -->
+  <text x="752" y="314" text-anchor="middle" font-family="Arial,sans-serif"
+        font-size="12.5" font-weight="bold" fill="white">Database</text>
+  <text x="752" y="333" text-anchor="middle" font-family="Arial,sans-serif"
+        font-size="10" fill="#ffd0d0">students.student_info</text>
+  <!-- Future note -->
+  <text x="752" y="376" text-anchor="middle" font-family="Arial,sans-serif"
+        font-size="9.5" fill="#a82222" font-style="italic">query will be executed here</text>
+
+
+  <!-- ══════════════ LEGEND ══════════════ -->
+
+  <rect x="30" y="310" width="210" height="68" rx="8" fill="white" opacity="0.75"/>
+  <text x="42" y="328" font-family="Arial,sans-serif" font-size="10.5" font-weight="bold" fill="#002147">Legend</text>
+
+  <!-- Green dashed -->
+  <line x1="42" y1="343" x2="80" y2="343" stroke="#1a7a3e" stroke-width="2" stroke-dasharray="6 3"/>
+  <text x="87" y="347" font-family="Arial,sans-serif" font-size="10" fill="#333">Text response path</text>
+
+  <!-- Solid dark -->
+  <line x1="42" y1="358" x2="80" y2="358" stroke="#445566" stroke-width="2"/>
+  <text x="87" y="362" font-family="Arial,sans-serif" font-size="10" fill="#333">Request / prompt flow</text>
+
+  <!-- Red -->
+  <line x1="42" y1="373" x2="80" y2="373" stroke="#a82222" stroke-width="2"/>
+  <text x="87" y="377" font-family="Arial,sans-serif" font-size="10" fill="#333">SQL query path</text>
+
+</svg>
