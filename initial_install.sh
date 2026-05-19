@@ -27,20 +27,31 @@ log "Prerequisites ready"
 
 
 # ─────────────────────────────────────────
-# 2. MYSQL — INSTALL IF MISSING
+# 2. MYSQL / MARIADB — INSTALL IF MISSING
 # ─────────────────────────────────────────
-step "Checking MySQL"
-if ! dpkg -l mysql-server 2>/dev/null | grep -q '^ii'; then
-    log "MySQL not found — installing..."
-    apt-get install -y mysql-server
-    log "MySQL installed"
-else
+step "Checking MySQL / MariaDB"
+if dpkg -l mysql-server 2>/dev/null | grep -q '^ii'; then
     log "MySQL already installed"
+    DB_SERVICE="mysql"
+elif dpkg -l mariadb-server 2>/dev/null | grep -q '^ii'; then
+    log "MariaDB already installed"
+    DB_SERVICE="mariadb"
+else
+    log "No MySQL/MariaDB found — attempting mysql-server..."
+    if apt-get install -y mysql-server 2>/dev/null; then
+        log "MySQL installed"
+        DB_SERVICE="mysql"
+    else
+        warn "mysql-server not available — falling back to mariadb-server"
+        apt-get install -y mariadb-server
+        log "MariaDB installed"
+        DB_SERVICE="mariadb"
+    fi
 fi
 
-systemctl enable mysql
-systemctl start  mysql
-log "MySQL service is running"
+systemctl enable "$DB_SERVICE"
+systemctl start  "$DB_SERVICE"
+log "$DB_SERVICE service is running"
 
 
 # ─────────────────────────────────────────
