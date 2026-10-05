@@ -1,12 +1,25 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 import requests
 import re
 import mysql.connector
+from functools import wraps
 
 app = Flask(__name__)
+app.secret_key = "aiwich-classroom-demo-key"
 
 OLLAMA_URL = "http://localhost:11434/api/chat"
 MODEL = "phi3:mini"
+
+# ---------------------------------------------------------------------------
+# Demo accounts — intentionally simple and visible to students (classroom use)
+# NOTE: these give a role for display purposes; the app does NOT enforce
+# role-based access on the SQL the LLM generates. That gap is the lesson.
+# ---------------------------------------------------------------------------
+DEMO_USERS = {
+    'alice': {'password': 'student123', 'name': 'Alice Johnson', 'role': 'Student', 'student_id': 'S1001'},
+    'ben':   {'password': 'student123', 'name': 'Ben Carter',    'role': 'Student', 'student_id': 'S1002'},
+    'prof':  {'password': 'lecturer123','name': 'Prof. Turing',  'role': 'Lecturer (COMP1671)', 'student_id': None},
+}
 
 DB_CONFIG = {
     'host': 'localhost',
@@ -69,18 +82,47 @@ Use when a lecturer asks to add or enrol a new student:
 system_prompt = DEFAULT_SYSTEM_PROMPT
 
 
-def get_logged_in_user():
-    try:
-        conn = mysql.connector.connect(**DB_CONFIG)
-        try:
-            cursor = conn.cursor(dictionary=True)
-            cursor.execute("SELECT student_id, student_name FROM student_info LIMIT 1")
-            row = cursor.fetchone()
-            return {'name': row['student_name'], 'id': row['student_id']} if row else None
-        finally:
-            conn.close()
-    except Exception:
-        return None
+def get_current_user():
+    """Return the logged-in user from the session, if any."""
+    username = session.get('username')
+    if username and username in DEMO_USERS:
+        u = DEMO_USERS[username]
+        return {'username': username, 'name': u['name'], 'role': u['role'], 'student_id': u['student_id']}
+    return None
+
+
+def login_required(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        if not get_current_user():
+            if request.path.startswith('/api/'):
+                return jsonify({'error': 'Not logged in.'}), 401
+            return redirect(url_for('login', next=request.path))
+        return f(*args, **kwargs)
+    return wrapper
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        username = request.form.get('username', '').strip()
+        password = request.form.get('password', '')
+        user = DEMO_USERS.get(username)
+        if user and user['password'] == password:
+            session['username'] = username
+            target = request.args.get('next') or '/'
+            if not target.startswith('/'):
+                target = '/'
+            return redirect(target)
+        error = "Invalid username or password."
+    return render_template('login.html', error=error)
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
 
 
 def run_sql(sql):
@@ -109,13 +151,15 @@ def format_select_results(rows):
 
 
 @app.route('/')
+@login_required
 def home():
-    return render_template('index.html', user=get_logged_in_user())
+    return render_template('index.html', user=get_current_user())
 
 
 @app.route('/ai-tuning')
+@login_required
 def ai_tuning():
-    return render_template('ai_tuning.html', prompt=system_prompt, default_prompt=DEFAULT_SYSTEM_PROMPT, user=get_logged_in_user())
+    return render_template('ai_tuning.html', prompt=system_prompt, default_prompt=DEFAULT_SYSTEM_PROMPT, user=get_current_user())
 
 
 @app.route('/api/system-prompt', methods=['GET'])
@@ -142,14 +186,24 @@ def reset_system_prompt():
 
 
 @app.route('/api/chat', methods=['POST'])
+@login_required
 def chat():
     data = request.get_json()
     user_message = data.get('message', '')
 
+    # Tell the model who is logged in so "my grade" questions work naturally.
+    # NOTE (teaching point): this is information only — the app still executes
+    # whatever SQL the model generates, with no role or ownership checks.
+    sys_content = system_prompt
+    u = get_current_user()
+    if u:
+        id_part = f"; student ID: {u['student_id']}" if u['student_id'] else ""
+        sys_content += f"\n\n## Current Session\nThe visitor is logged in as {u['name']} (role: {u['role']}{id_part}).\nTreat questions about \"my\" records as referring to this account."
+
     payload = {
         "model": MODEL,
         "messages": [
-            {"role": "system", "content": system_prompt},
+            {"role": "system", "content": sys_content},
             {"role": "user",   "content": user_message}
         ],
         "stream": False

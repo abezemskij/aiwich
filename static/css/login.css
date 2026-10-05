@@ -1,0 +1,124 @@
+/* Login page — matches University of AI-Wich palette */
+.login-body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg, #002147 0%, #003c80 100%);
+    padding: 20px;
+}
+
+.login-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+    width: 100%;
+    max-width: 400px;
+    padding: 40px 36px 30px;
+    text-align: center;
+}
+
+.login-logo img {
+    width: 64px;
+    height: auto;
+    margin-bottom: 8px;
+}
+
+.login-card h1 {
+    font-size: 1.25rem;
+    color: #002147;
+    margin: 4px 0 2px;
+}
+
+.login-subtitle {
+    font-size: 0.85rem;
+    color: #5a6b7f;
+    margin-bottom: 24px;
+}
+
+.login-error {
+    background: #fdecea;
+    color: #b71c1c;
+    border: 1px solid #f5c6c0;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    padding: 10px 12px;
+    margin-bottom: 18px;
+}
+
+.login-card label {
+    display: block;
+    text-align: left;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #002147;
+    margin: 14px 0 6px;
+}
+
+.login-card input[type="text"],
+.login-card input[type="password"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 12px;
+    font-size: 0.95rem;
+    border: 1px solid #d0dae8;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+.login-card input:focus {
+    border-color: #003c80;
+}
+
+.login-btn {
+    width: 100%;
+    margin-top: 24px;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background: #002147;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.login-btn:hover {
+    background: #003c80;
+}
+
+.login-hint {
+    margin-top: 26px;
+    padding: 12px 14px;
+    background: #eef4fb;
+    border: 1px solid #d0dae8;
+    border-radius: 6px;
+    text-align: left;
+    font-size: 0.78rem;
+    color: #33475e;
+}
+
+.login-hint strong {
+    color: #002147;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.login-hint ul {
+    margin: 0;
+    padding-left: 16px;
+}
+
+.login-hint li {
+    margin: 3px 0;
+}
+
+.login-hint code {
+    background: #ffffff;
+    border: 1px solid #d0dae8;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.75rem;
+}

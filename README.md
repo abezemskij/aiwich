@@ -26,6 +26,25 @@ Requires root for the install script. Tested on Ubuntu 22.04 / Debian 12.
 
 ---
 
+## Login
+
+The site requires sign-in. Demo accounts (shown on the login page):
+
+| Username | Password | Role |
+|---|---|---|
+| `alice` | `student123` | Student (S1001) |
+| `ben` | `student123` | Student (S1002) |
+| `prof` | `lecturer123` | Lecturer (COMP1671) |
+
+> **Teaching point:** the login tells the app *who you are* — but the app never
+> checks that against what the LLM is told to do. A logged-in student can still
+> prompt the model into acting as a lecturer or dumping the whole table.
+> Authentication is not authorisation.
+
+**Suggested demo order:** log in as `alice` → ask "What is my grade in COMP1671?" (works, feels trustworthy) → then run one of the injection prompts below.
+
+---
+
 ## Educational Focus — Prompt Injection
 
 This application is intentionally designed to demonstrate **prompt injection** vulnerabilities in LLM-integrated systems. Prompt injection occurs when a user crafts input that manipulates the LLM into ignoring its original instructions and performing unintended actions.

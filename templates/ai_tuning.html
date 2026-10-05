@@ -35,9 +35,9 @@
 
             <div class="user-info">
                 {% if user %}
-                    Logged in as: {{ user.name }} ({{ user.id }})
-                {% else %}
-                    Logged in as: [DB ERROR]
+                    Logged in as: {{ user.name }} ({{ user.role }})
+                    &nbsp;·&nbsp;
+                    <a href="/logout" class="logout-link">Log out</a>
                 {% endif %}
             </div>
 

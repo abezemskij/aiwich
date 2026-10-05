@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — University of AI-Wich</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+
+<body class="login-body">
+
+    <div class="login-card">
+
+        <div class="login-logo">
+            <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Logo">
+        </div>
+
+        <h1>University of AI-Wich</h1>
+        <p class="login-subtitle">
+            Sign in to access the Campus AI Assistant
+        </p>
+
+        {% if error %}
+            <div class="login-error">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" action="/login{% if request.args.get('next') %}?next={{ request.args['next'] }}{% endif %}">
+
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="e.g. alice" autofocus required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="••••••••" required>
+
+            <button type="submit" class="login-btn">
+                Sign In
+            </button>
+
+        </form>
+
+        <div class="login-hint">
+            <strong>Demo accounts</strong>
+            <ul>
+                <li><code>alice</code> / <code>student123</code> — Student (S1001)</li>
+                <li><code>ben</code> / <code>student123</code> — Student (S1002)</li>
+                <li><code>prof</code> / <code>lecturer123</code> — Lecturer (COMP1671)</li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>
